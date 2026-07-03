@@ -21,7 +21,7 @@ async function readFileContent(file: File): Promise<string> {
   const ext = file.name.split(".").pop()?.toLowerCase();
   if (ext === "txt") return await file.text();
   if (ext === "docx") { const a = await file.arrayBuffer(); const m = await import("mammoth"); const r = await m.extractRawText({ arrayBuffer: a }); return r.value; }
-  throw new Error("鏀寔 .txt 鍜?.docx 鏍煎紡");
+  throw new Error("支持 .txt 和 .docx 格式");
 }
 function fmtSize(b: number): string { if (b < 1024) return b + " B"; if (b < 1048576) return (b / 1024).toFixed(1) + " KB"; return (b / 1048576).toFixed(1) + " MB"; }
 
@@ -74,28 +74,28 @@ export default function Home() {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-30" />
         <div className="relative max-w-5xl mx-auto px-4 py-14 md:py-20 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full text-sm font-medium mb-5 border border-white/10">
-            <IconSparkle /> AI 浣滃搧闆?路 Demo
+            <IconSparkle /> AI 作品集 · Demo
           </div>
-          <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-3">AI 瀹炰範姹傝亴鍔╂墜</h1>
-          <p className="text-base md:text-lg text-indigo-200 max-w-2xl mx-auto leading-relaxed">涓婁紶绠€鍘?+ 鐩爣鑱屼綅 JD锛孉I 甯綘娣卞害鍒嗘瀽宀椾綅鍖归厤搴︺€佷紭鍖栫畝鍘嗐€佸噯澶囬潰璇?/p>
+          <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-3">AI 实习求职助手</h1>
+          <p className="text-base md:text-lg text-indigo-200 max-w-2xl mx-auto leading-relaxed">上传简历 + 目标职位 JD，AI 帮你深度分析岗位匹配度、优化简历、准备面试</p>
           <div className="mt-6 md:mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-indigo-200">
-            <span className="flex items-center gap-1.5"><IconCheck className="w-4 h-4 text-emerald-300 shrink-0" /> 宀椾綅瑙ｈ</span>
-            <span className="flex items-center gap-1.5"><IconCheck className="w-4 h-4 text-emerald-300 shrink-0" /> 鍖归厤鍒嗘瀽</span>
-            <span className="flex items-center gap-1.5"><IconCheck className="w-4 h-4 text-emerald-300 shrink-0" /> 绠€鍘嗕紭鍖?/span>
-            <span className="flex items-center gap-1.5"><IconCheck className="w-4 h-4 text-emerald-300 shrink-0" /> 闈㈣瘯鍑嗗</span>
+            <span className="flex items-center gap-1.5"><IconCheck className="w-4 h-4 text-emerald-300 shrink-0" /> 岗位解读</span>
+            <span className="flex items-center gap-1.5"><IconCheck className="w-4 h-4 text-emerald-300 shrink-0" /> 匹配分析</span>
+            <span className="flex items-center gap-1.5"><IconCheck className="w-4 h-4 text-emerald-300 shrink-0" /> 简历优化</span>
+            <span className="flex items-center gap-1.5"><IconCheck className="w-4 h-4 text-emerald-300 shrink-0" /> 面试准备</span>
           </div>
         </div>
         <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-slate-50 to-transparent" />
       </div>
 
       <div className="max-w-5xl mx-auto px-4 -mt-6 relative z-10">
-        {error && <div className="mb-4 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm flex items-center gap-2"><span>鈿狅笍</span> {error}</div>}
+        {error && <div className="mb-4 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm flex items-center gap-2"><span>⚠️</span> {error}</div>}
 
         {/* Tab */}
         {result && (
           <div className="flex gap-1 mb-6 bg-white border border-slate-200 rounded-2xl p-1 w-fit mx-auto shadow-sm">
-            <button onClick={rst} className={"px-5 py-2.5 rounded-xl text-sm font-medium transition-all " + (tab === "input" ? "bg-indigo-600 text-white shadow-md" : "text-slate-500 hover:text-slate-700")}>馃摑 閲嶆柊杈撳叆</button>
-            <button onClick={() => setTab("result")} className={"px-5 py-2.5 rounded-xl text-sm font-medium transition-all " + (tab === "result" ? "bg-indigo-600 text-white shadow-md" : "text-slate-500 hover:text-slate-700")}>馃搳 鍒嗘瀽鎶ュ憡</button>
+            <button onClick={rst} className={"px-5 py-2.5 rounded-xl text-sm font-medium transition-all " + (tab === "input" ? "bg-indigo-600 text-white shadow-md" : "text-slate-500 hover:text-slate-700")}>📝 重新输入</button>
+            <button onClick={() => setTab("result")} className={"px-5 py-2.5 rounded-xl text-sm font-medium transition-all " + (tab === "result" ? "bg-indigo-600 text-white shadow-md" : "text-slate-500 hover:text-slate-700")}>📊 分析报告</button>
           </div>
         )}
 
@@ -106,14 +106,14 @@ export default function Home() {
               {/* Resume */}
               <div className="bg-white rounded-2xl border border-slate-200 p-5 md:p-6 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm shrink-0">馃搫</div>
-                  <div><h3 className="font-semibold text-slate-800 text-sm">浣犵殑绠€鍘?/h3><p className="text-xs text-slate-400">鏀寔 .txt銆?docx锛屾嫋鎷芥垨鐐瑰嚮涓婁紶</p></div>
+                  <div className="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm shrink-0">📄</div>
+                  <div><h3 className="font-semibold text-slate-800 text-sm">你的简历</h3><p className="text-xs text-slate-400">支持 .txt、.docx，拖拽或点击上传</p></div>
                 </div>
                 {!rf ? (
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xs text-slate-400">宸叉湁绀轰緥鏁版嵁</span>
+                    <span className="text-xs text-slate-400">已有示例数据</span>
                     <button onClick={() => ri.current?.click()} className="text-xs text-indigo-600 hover:text-indigo-700 font-medium flex items-center gap-1">
-                      <IconUpload className="w-3.5 h-3.5" /> 涓婁紶鏂囦欢鏇挎崲
+                      <IconUpload className="w-3.5 h-3.5" /> 上传文件替换
                     </button>
                     <input ref={ri} type="file" accept=".txt,.docx" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) hu(f, "r"); }} />
                   </div>
@@ -124,20 +124,20 @@ export default function Home() {
                     <button onClick={() => { setResume(""); setRf(null); }} className="p-1.5 hover:bg-red-50 rounded-lg text-slate-400 hover:text-red-500 transition-colors"><IconTrash /></button>
                   </div>
                 )}
-                {ru && <div className="mt-2 flex items-center gap-2 text-sm text-indigo-600"><div className="w-4 h-4 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" /> 瑙ｆ瀽涓?..</div>}
-                <textarea value={resume} onChange={(e) => { setResume(e.target.value); if (!e.target.value) setRf(null); }} rows={10} className="w-full mt-3 border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 transition resize-none bg-slate-50" placeholder="鍦ㄦ绮樿创绠€鍘嗗唴瀹?.." />
+                {ru && <div className="mt-2 flex items-center gap-2 text-sm text-indigo-600"><div className="w-4 h-4 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" /> 解析中...</div>}
+                <textarea value={resume} onChange={(e) => { setResume(e.target.value); if (!e.target.value) setRf(null); }} rows={10} className="w-full mt-3 border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 transition resize-none bg-slate-50" placeholder="在此粘贴简历内容..." />
               </div>
               {/* JD */}
               <div className="bg-white rounded-2xl border border-slate-200 p-5 md:p-6 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center text-sm shrink-0">馃幆</div>
-                  <div><h3 className="font-semibold text-slate-800 text-sm">鐩爣鑱屼綅 JD</h3><p className="text-xs text-slate-400">鏀寔 .txt銆?docx锛屾嫋鎷芥垨鐐瑰嚮涓婁紶</p></div>
+                  <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center text-sm shrink-0">🎯</div>
+                  <div><h3 className="font-semibold text-slate-800 text-sm">目标职位 JD</h3><p className="text-xs text-slate-400">支持 .txt、.docx，拖拽或点击上传</p></div>
                 </div>
                 {!jf ? (
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xs text-slate-400">宸叉湁绀轰緥鏁版嵁</span>
+                    <span className="text-xs text-slate-400">已有示例数据</span>
                     <button onClick={() => ji.current?.click()} className="text-xs text-amber-600 hover:text-amber-700 font-medium flex items-center gap-1">
-                      <IconUpload className="w-3.5 h-3.5" /> 涓婁紶鏂囦欢鏇挎崲
+                      <IconUpload className="w-3.5 h-3.5" /> 上传文件替换
                     </button>
                     <input ref={ji} type="file" accept=".txt,.docx" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) hu(f, "j"); }} />
                   </div>
@@ -148,37 +148,37 @@ export default function Home() {
                     <button onClick={() => { setJd(""); setJf(null); }} className="p-1.5 hover:bg-red-50 rounded-lg text-slate-400 hover:text-red-500 transition-colors"><IconTrash /></button>
                   </div>
                 )}
-                {ju && <div className="mt-2 flex items-center gap-2 text-sm text-amber-600"><div className="w-4 h-4 border-2 border-amber-600 border-t-transparent rounded-full animate-spin" /> 瑙ｆ瀽涓?..</div>}
-                <textarea value={jd} onChange={(e) => { setJd(e.target.value); if (!e.target.value) setJf(null); }} rows={10} className="w-full mt-3 border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-400 transition resize-none bg-slate-50" placeholder="鍦ㄦ绮樿创鑱屼綅鎻忚堪..." />
+                {ju && <div className="mt-2 flex items-center gap-2 text-sm text-amber-600"><div className="w-4 h-4 border-2 border-amber-600 border-t-transparent rounded-full animate-spin" /> 解析中...</div>}
+                <textarea value={jd} onChange={(e) => { setJd(e.target.value); if (!e.target.value) setJf(null); }} rows={10} className="w-full mt-3 border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-400 transition resize-none bg-slate-50" placeholder="在此粘贴职位描述..." />
               </div>
             </div>
 
             {/* Action Bar */}
             <div className="bg-white rounded-2xl border border-slate-200 p-4 md:p-5 shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 md:gap-4">
               <div className="flex flex-wrap items-center gap-3">
-                <span className="text-sm font-semibold text-slate-700 shrink-0">馃挕 蹇€熶綋楠岋細</span>
-                <button onClick={loadSample} className="px-3.5 py-1.5 bg-indigo-50 text-indigo-600 rounded-xl text-sm font-medium hover:bg-indigo-100 transition-colors border border-indigo-100">鍔犺浇绀轰緥鏁版嵁</button>
+                <span className="text-sm font-semibold text-slate-700 shrink-0">💡 快速体验：</span>
+                <button onClick={loadSample} className="px-3.5 py-1.5 bg-indigo-50 text-indigo-600 rounded-xl text-sm font-medium hover:bg-indigo-100 transition-colors border border-indigo-100">加载示例数据</button>
                 <div className="hidden sm:flex items-center gap-3 ml-2 pl-3 border-l border-slate-200">
-                  <span className="text-sm font-semibold text-slate-700">馃摉 璁″垝锛?/span>
+                  <span className="text-sm font-semibold text-slate-700">📖 计划：</span>
                   <div className="flex gap-1 bg-slate-100 rounded-xl p-0.5">
-                    <button onClick={() => setPlanType("3")} className={"px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all " + (planType === "3" ? "bg-white text-indigo-600 shadow-sm" : "text-slate-500 hover:text-slate-700")}>3澶?/button>
-                    <button onClick={() => setPlanType("7")} className={"px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all " + (planType === "7" ? "bg-white text-indigo-600 shadow-sm" : "text-slate-500 hover:text-slate-700")}>7澶?/button>
+                    <button onClick={() => setPlanType("3")} className={"px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all " + (planType === "3" ? "bg-white text-indigo-600 shadow-sm" : "text-slate-500 hover:text-slate-700")}>3天</button>
+                    <button onClick={() => setPlanType("7")} className={"px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all " + (planType === "7" ? "bg-white text-indigo-600 shadow-sm" : "text-slate-500 hover:text-slate-700")}>7天</button>
                   </div>
                 </div>
               </div>
               <button onClick={analyze} disabled={status === "analyzing" || !resume.trim() || !jd.trim()}
                 className="flex items-center justify-center gap-2 px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-xl font-semibold text-sm hover:from-indigo-700 hover:to-indigo-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg">
                 {status === "analyzing" ? (
-                  <><div className="flex gap-1"><span className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:-0.3s]" /><span className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:-0.15s]" /><span className="w-2 h-2 bg-white rounded-full animate-bounce" /></div> AI 鍒嗘瀽涓?..</>
-                ) : (<><IconSparkle /> 寮€濮嬪垎鏋?/>)}
+                  <><div className="flex gap-1"><span className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:-0.3s]" /><span className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:-0.15s]" /><span className="w-2 h-2 bg-white rounded-full animate-bounce" /></div> AI 分析中...</>
+                ) : (<><IconSparkle /> 开始分析</>)}
               </button>
             </div>
             {/* Mobile plan selector */}
             <div className="sm:hidden flex items-center gap-3 bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
-              <span className="text-sm font-semibold text-slate-700">馃摉 瀛︿範璁″垝锛?/span>
+              <span className="text-sm font-semibold text-slate-700">📖 学习计划：</span>
               <div className="flex gap-1 bg-slate-100 rounded-xl p-0.5">
-                <button onClick={() => setPlanType("3")} className={"px-4 py-1.5 rounded-lg text-sm font-medium transition-all " + (planType === "3" ? "bg-white text-indigo-600 shadow-sm" : "text-slate-500 hover:text-slate-700")}>3澶╅€熸垚</button>
-                <button onClick={() => setPlanType("7")} className={"px-4 py-1.5 rounded-lg text-sm font-medium transition-all " + (planType === "7" ? "bg-white text-indigo-600 shadow-sm" : "text-slate-500 hover:text-slate-700")}>7澶╂繁搴?/button>
+                <button onClick={() => setPlanType("3")} className={"px-4 py-1.5 rounded-lg text-sm font-medium transition-all " + (planType === "3" ? "bg-white text-indigo-600 shadow-sm" : "text-slate-500 hover:text-slate-700")}>3天速成</button>
+                <button onClick={() => setPlanType("7")} className={"px-4 py-1.5 rounded-lg text-sm font-medium transition-all " + (planType === "7" ? "bg-white text-indigo-600 shadow-sm" : "text-slate-500 hover:text-slate-700")}>7天深度</button>
               </div>
             </div>
           </div>
@@ -187,7 +187,7 @@ export default function Home() {
         {/* Results */}
         {result && tab === "result" && (
           <div ref={rr} className="space-y-5 pb-12">
-            <p className="text-xs text-slate-400 text-center">鍒嗘瀽瀹屾垚锛屽叡 6 涓ā鍧?/p>
+            <p className="text-xs text-slate-400 text-center">分析完成，共 6 个模块</p>
             <ScoreCard result={result} />
             <JDCard result={result} />
             <MatchCard result={result} />
@@ -197,7 +197,7 @@ export default function Home() {
           </div>
         )}
       </div>
-      <footer className="text-center py-8 text-xs text-slate-400 border-t border-slate-100"><p>AI 瀹炰範姹傝亴鍔╂墜 路 浣滃搧闆?Demo 路 2026</p></footer>
+      <footer className="text-center py-8 text-xs text-slate-400 border-t border-slate-100"><p>AI 实习求职助手 · 作品集 Demo · 2026</p></footer>
     </div>
   );
 }
@@ -217,12 +217,12 @@ function ScoreCard({ result }: { result: AnalysisResult }) {
             <circle cx="48" cy="48" r="38" fill="none" className={r} strokeWidth="5" strokeLinecap="round" strokeDasharray={2*Math.PI*38*s/100+" "+2*Math.PI*38*(1-s/100)} />
           </svg>
         </div>
-        <div><p className="text-xs md:text-sm text-slate-400 mb-0.5">缁煎悎鍖归厤搴?/p><p className="text-lg md:text-xl font-bold text-slate-800">{result.matchAnalysis.rating}</p><p className="text-xs text-slate-400 mt-0.5">澶氱淮搴?AI 鍖归厤鍒嗘瀽</p></div>
+        <div><p className="text-xs md:text-sm text-slate-400 mb-0.5">综合匹配度</p><p className="text-lg md:text-xl font-bold text-slate-800">{result.matchAnalysis.rating}</p><p className="text-xs text-slate-400 mt-0.5">多维度 AI 匹配分析</p></div>
       </div>
       <div className="mt-4 md:mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
         {result.matchAnalysis.dimensions.map((d, i) => (
           <div key={i} className="bg-slate-50 rounded-xl p-3 border border-slate-100">
-            <div className="flex items-center justify-between mb-2"><span className="text-xs font-medium text-slate-500">{d.name}</span><span className={"text-xs font-bold "+(d.score>=80?"text-emerald-600":d.score>=60?"text-amber-600":"text-red-600")}>{d.score}鍒?/span></div>
+            <div className="flex items-center justify-between mb-2"><span className="text-xs font-medium text-slate-500">{d.name}</span><span className={"text-xs font-bold "+(d.score>=80?"text-emerald-600":d.score>=60?"text-amber-600":"text-red-600")}>{d.score}分</span></div>
             <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden"><div className={"h-full rounded-full "+(d.score>=80?"bg-emerald-500":d.score>=60?"bg-amber-500":"bg-red-500")} style={{width:d.score+"%"}} /></div>
             <p className="text-xs text-slate-400 mt-2 leading-relaxed">{d.comment}</p>
           </div>
@@ -237,24 +237,24 @@ function JDCard({ result }: { result: AnalysisResult }) {
   const j = result.jdAnalysis;
   return (
     <div className={"bg-white rounded-2xl border border-slate-200 p-5 md:p-6 shadow-sm " + ANI}>
-      <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2 text-sm md:text-base">馃攳 宀椾綅鏍稿績瑙ｈ</h3>
+      <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2 text-sm md:text-base">🔍 岗位核心解读</h3>
       <div className="space-y-4">
-        <div><h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2.5">鏍稿績鑱岃矗</h4>
+        <div><h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2.5">核心职责</h4>
           <ul className="space-y-2">{j.coreResponsibilities.map((r,i)=>(
             <li key={i} className="flex gap-2.5 text-sm text-slate-600"><span className="w-5 h-5 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">{i+1}</span><span>{r}</span></li>
           ))}</ul>
         </div>
         <div className="grid sm:grid-cols-2 gap-4">
-          <div><h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2.5">蹇呭鎶€鑳?/h4>
+          <div><h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2.5">必备技能</h4>
             <div className="space-y-1.5">{j.requiredSkills.map((s,i)=>(
-              <div key={i} className="flex items-center gap-2"><div className={"w-2 h-2 rounded-full "+(s.priority==="楂??"bg-red-400":s.priority==="涓??"bg-amber-400":"bg-blue-400")} /><span className="text-sm text-slate-600">{s.name}</span><span className={"text-xs px-1.5 py-0.5 rounded "+(s.priority==="楂??"bg-red-50 text-red-500":s.priority==="涓??"bg-amber-50 text-amber-600":"bg-blue-50 text-blue-500")}>{s.priority}</span></div>
+              <div key={i} className="flex items-center gap-2"><div className={"w-2 h-2 rounded-full "+(s.priority==="高"?"bg-red-400":s.priority==="中"?"bg-amber-400":"bg-blue-400")} /><span className="text-sm text-slate-600">{s.name}</span><span className={"text-xs px-1.5 py-0.5 rounded "+(s.priority==="高"?"bg-red-50 text-red-500":s.priority==="中"?"bg-amber-50 text-amber-600":"bg-blue-50 text-blue-500")}>{s.priority}</span></div>
             ))}</div>
           </div>
-          <div><h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2.5">鍔犲垎椤?/h4>
-            <div className="space-y-1.5">{j.bonusSkills.map((s,i)=>(<div key={i} className="flex items-center gap-2 text-sm text-slate-600"><span className="text-emerald-500 shrink-0">鉁?/span> {s}</div>))}</div>
+          <div><h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2.5">加分项</h4>
+            <div className="space-y-1.5">{j.bonusSkills.map((s,i)=>(<div key={i} className="flex items-center gap-2 text-sm text-slate-600"><span className="text-emerald-500 shrink-0">✦</span> {s}</div>))}</div>
           </div>
         </div>
-        <div><h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">鍏抽敭璇?/h4>
+        <div><h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">关键词</h4>
           <div className="flex flex-wrap gap-1.5">{j.keywords.map((k,i)=>(<span key={i} className="px-2.5 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">{k}</span>))}</div>
         </div>
       </div>
@@ -267,15 +267,15 @@ function MatchCard({ result }: { result: AnalysisResult }) {
   const m = result.matchAnalysis;
   return (
     <div className={"bg-white rounded-2xl border border-slate-200 p-5 md:p-6 shadow-sm " + ANI}>
-      <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2 text-sm md:text-base">馃搳 鍖归厤搴﹀垎鏋?/h3>
+      <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2 text-sm md:text-base">📊 匹配度分析</h3>
       <div className="grid sm:grid-cols-2 gap-4">
         <div className="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
-          <h4 className="text-sm font-semibold text-emerald-700 mb-2">鉁?浼樺娍椤?/h4>
-          <ul className="space-y-1.5">{m.strengths.map((t,i)=>(<li key={i} className="flex gap-2 text-sm text-emerald-800"><span className="text-emerald-400 shrink-0 mt-0.5">鈥?/span><span>{t}</span></li>))}</ul>
+          <h4 className="text-sm font-semibold text-emerald-700 mb-2">✅ 优势项</h4>
+          <ul className="space-y-1.5">{m.strengths.map((t,i)=>(<li key={i} className="flex gap-2 text-sm text-emerald-800"><span className="text-emerald-400 shrink-0 mt-0.5">•</span><span>{t}</span></li>))}</ul>
         </div>
         <div className="bg-red-50 rounded-xl p-4 border border-red-100">
-          <h4 className="text-sm font-semibold text-red-700 mb-2">鈿狅笍 鐭澘椤?/h4>
-          <ul className="space-y-1.5">{m.weaknesses.map((t,i)=>(<li key={i} className="flex gap-2 text-sm text-red-800"><span className="text-red-400 shrink-0 mt-0.5">鈥?/span><span>{t}</span></li>))}</ul>
+          <h4 className="text-sm font-semibold text-red-700 mb-2">⚠️ 短板项</h4>
+          <ul className="space-y-1.5">{m.weaknesses.map((t,i)=>(<li key={i} className="flex gap-2 text-sm text-red-800"><span className="text-red-400 shrink-0 mt-0.5">•</span><span>{t}</span></li>))}</ul>
         </div>
       </div>
     </div>
@@ -286,12 +286,12 @@ function MatchCard({ result }: { result: AnalysisResult }) {
 function OptimizeCard({ result }: { result: AnalysisResult }) {
   return (
     <div className={"bg-white rounded-2xl border border-slate-200 p-5 md:p-6 shadow-sm " + ANI}>
-      <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2 text-sm md:text-base">鉁忥笍 绠€鍘嗕紭鍖栧缓璁?/h3>
+      <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2 text-sm md:text-base">✏️ 简历优化建议</h3>
       <div className="space-y-3">{result.resumeSuggestions.map((t,i)=>(
         <div key={i} className="border border-slate-200 rounded-xl overflow-hidden hover:border-indigo-200 transition-colors">
-          <div className="flex items-center gap-2 px-4 py-2 bg-slate-50 border-b border-slate-100"><span className="w-6 h-6 rounded-full bg-gradient-to-br from-indigo-500 to-indigo-600 text-white flex items-center justify-center text-xs font-bold">{i+1}</span><span className="text-xs text-slate-400 font-medium">浼樺寲寤鸿</span></div>
-          <div className="grid sm:grid-cols-2"><div className="p-3.5 bg-red-50/50 border-b sm:border-b-0 sm:border-r border-slate-200"><p className="text-xs font-medium text-red-500 mb-1">鍘熸枃</p><p className="text-sm text-red-800">{t.original}</p></div><div className="p-3.5 bg-emerald-50/50"><p className="text-xs font-medium text-emerald-500 mb-1">淇敼寤鸿</p><p className="text-sm text-emerald-800">{t.optimized}</p></div></div>
-          <div className="px-4 py-2 bg-indigo-50/50 border-t border-slate-100 flex items-center gap-1.5 text-xs text-indigo-600"><span>馃挕</span> {t.reason}</div>
+          <div className="flex items-center gap-2 px-4 py-2 bg-slate-50 border-b border-slate-100"><span className="w-6 h-6 rounded-full bg-gradient-to-br from-indigo-500 to-indigo-600 text-white flex items-center justify-center text-xs font-bold">{i+1}</span><span className="text-xs text-slate-400 font-medium">优化建议</span></div>
+          <div className="grid sm:grid-cols-2"><div className="p-3.5 bg-red-50/50 border-b sm:border-b-0 sm:border-r border-slate-200"><p className="text-xs font-medium text-red-500 mb-1">原文</p><p className="text-sm text-red-800">{t.original}</p></div><div className="p-3.5 bg-emerald-50/50"><p className="text-xs font-medium text-emerald-500 mb-1">修改建议</p><p className="text-sm text-emerald-800">{t.optimized}</p></div></div>
+          <div className="px-4 py-2 bg-indigo-50/50 border-t border-slate-100 flex items-center gap-1.5 text-xs text-indigo-600"><span>💡</span> {t.reason}</div>
         </div>
       ))}</div>
     </div>
@@ -302,10 +302,10 @@ function OptimizeCard({ result }: { result: AnalysisResult }) {
 function InterviewCard({ result }: { result: AnalysisResult }) {
   return (
     <div className={"bg-white rounded-2xl border border-slate-200 p-5 md:p-6 shadow-sm " + ANI}>
-      <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2 text-sm md:text-base">馃帳 闈㈣瘯闂棰勬祴</h3>
+      <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2 text-sm md:text-base">🎤 面试问题预测</h3>
       <div className="space-y-3">{result.interviewQuestions.map((q,i)=>(
         <div key={i} className="border border-slate-200 rounded-xl p-4 hover:border-indigo-200 transition-colors">
-          <div className="flex items-start gap-3"><span className={"px-2.5 py-1 rounded-lg text-xs font-medium shrink-0 "+(q.type==="閫氱敤"?"bg-blue-100 text-blue-600":"bg-purple-100 text-purple-600")}>{q.type}</span><div className="flex-1"><p className="text-sm font-medium text-slate-800 mb-1.5">{q.question}</p><p className="text-xs text-slate-500 leading-relaxed">{q.answerApproach}</p></div></div>
+          <div className="flex items-start gap-3"><span className={"px-2.5 py-1 rounded-lg text-xs font-medium shrink-0 "+(q.type==="通用"?"bg-blue-100 text-blue-600":"bg-purple-100 text-purple-600")}>{q.type}</span><div className="flex-1"><p className="text-sm font-medium text-slate-800 mb-1.5">{q.question}</p><p className="text-xs text-slate-500 leading-relaxed">{q.answerApproach}</p></div></div>
         </div>
       ))}</div>
     </div>
@@ -317,8 +317,8 @@ function PlanCard({ result }: { result: AnalysisResult }) {
   const plan = result.improvementPlan;
   return (
     <div className={"bg-white rounded-2xl border border-slate-200 p-5 md:p-6 shadow-sm " + ANI}>
-      <h3 className="font-semibold text-slate-800 mb-1 flex items-center gap-2 text-sm md:text-base">馃摉 瀛︿範璁″垝</h3>
-      <p className="text-xs text-slate-400 mb-4">馃搮 {plan.type}瀛︿範璁″垝锛屾寜澶╂媶瑙ｅ涔犱换鍔?/p>
+      <h3 className="font-semibold text-slate-800 mb-1 flex items-center gap-2 text-sm md:text-base">📖 学习计划</h3>
+      <p className="text-xs text-slate-400 mb-4">📅 {plan.type}学习计划，按天拆解学习任务</p>
       <div className="space-y-3">{plan.days.map((d,i)=>(
         <details key={i} className="border border-slate-200 rounded-xl overflow-hidden group" open={i<2}>
           <summary className="flex items-center gap-3 p-3.5 md:p-4 cursor-pointer hover:bg-slate-50 transition-colors">
@@ -327,8 +327,8 @@ function PlanCard({ result }: { result: AnalysisResult }) {
             <svg className="w-4 h-4 text-slate-400 transition-transform group-open:rotate-180 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>
           </summary>
           <div className="px-4 pb-4 pt-0 border-t border-slate-100">
-            <ul className="space-y-1.5 mt-3">{d.actions.map((a,j)=>(<li key={j} className="flex gap-2 text-sm text-slate-600"><span className="text-indigo-400 shrink-0 mt-0.5">鈥?/span><span>{a}</span></li>))}</ul>
-            {d.output && <p className="text-xs text-cyan-600 mt-2 flex items-center gap-1"><span>馃摑</span> 棰勬湡浜у嚭锛歿d.output}</p>}
+            <ul className="space-y-1.5 mt-3">{d.actions.map((a,j)=>(<li key={j} className="flex gap-2 text-sm text-slate-600"><span className="text-indigo-400 shrink-0 mt-0.5">•</span><span>{a}</span></li>))}</ul>
+            {d.output && <p className="text-xs text-cyan-600 mt-2 flex items-center gap-1"><span>📝</span> 预期产出：{d.output}</p>}
           </div>
         </details>
       ))}</div>
